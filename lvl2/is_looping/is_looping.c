@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_of_2.c                                       :+:      :+:    :+:   */
+/*   is_looping.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 09:14:42 by exam              #+#    #+#             */
-/*   Updated: 2019/06/08 20:56:20 by juochen          ###   ########.fr       */
+/*   Created: 2019/01/14 18:35:56 by exam              #+#    #+#             */
+/*   Updated: 2019/01/14 19:34:19 by exam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int    count_of_2(int n)
-{
-	int i;
-	int two = 0;
-	int tmp;
+struct s_node {
+	int value;
+	struct s_node *next;
+};
 
-	if (n <= 1)
+int	is_looping(struct s_node *node)
+{
+	struct s_node loopNode;
+	struct s_node *cur;
+	struct s_node *prev;
+
+	if (node == 0)
 		return (0);
-	// iterate all numbers under n
-	i = 2;
-	while (i <= n)
+
+	loopNode.value = -55667788;
+	loopNode.next = 0;
+	
+	prev = 0;
+	cur = node;
+	while (cur != 0)
 	{
-		tmp = i;
-		while(tmp != 0)
-		{
-			if(tmp % 10 == 2)
-				two++;
-			tmp /= 10;
-		}
-		i++;
+		if (cur->value == -55667788)
+			return (1);
+		prev = cur;
+		cur = cur->next;
+		prev->next = &loopNode;
 	}
-	return (two);
+	return (0);
 }

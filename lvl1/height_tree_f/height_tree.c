@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_of_2.c                                       :+:      :+:    :+:   */
+/*   height_tree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 09:14:42 by exam              #+#    #+#             */
-/*   Updated: 2019/06/08 20:56:20 by juochen          ###   ########.fr       */
+/*   Created: 2019/01/11 18:03:50 by exam              #+#    #+#             */
+/*   Updated: 2019/01/11 19:05:01 by exam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int    count_of_2(int n)
+int height_tree(struct s_node *root)
 {
-	int i;
-	int two = 0;
-	int tmp;
+	int height = 0;
 
-	if (n <= 1)
-		return (0);
-	// iterate all numbers under n
-	i = 2;
-	while (i <= n)
+	if (root == NULL)
+		return (-1);
+	
+	while (*root->nodes != NULL)
 	{
-		tmp = i;
-		while(tmp != 0)
-		{
-			if(tmp % 10 == 2)
-				two++;
-			tmp /= 10;
-		}
-		i++;
+		height = height_tree(*root->nodes) + 1;
+		root->nodes++;
 	}
-	return (two);
+	return(height);
 }

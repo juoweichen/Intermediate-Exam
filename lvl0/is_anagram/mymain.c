@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_of_2.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 09:14:42 by exam              #+#    #+#             */
-/*   Updated: 2019/06/08 20:56:20 by juochen          ###   ########.fr       */
+/*   Created: 2019/04/09 09:14:19 by exam              #+#    #+#             */
+/*   Updated: 2019/04/09 09:18:44 by exam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int    count_of_2(int n)
-{
-	int i;
-	int two = 0;
-	int tmp;
+#include <stdio.h>
 
-	if (n <= 1)
-		return (0);
-	// iterate all numbers under n
-	i = 2;
-	while (i <= n)
-	{
-		tmp = i;
-		while(tmp != 0)
-		{
-			if(tmp % 10 == 2)
-				two++;
-			tmp /= 10;
-		}
-		i++;
-	}
-	return (two);
+int	is_anagram(char *a, char *b);
+
+int main(void)
+{
+	char *a1 = "abcdef";
+	char *b1 = "fabcde";
+	printf("%d\n", is_anagram(a1, b1));
+
+	char *a2 = ".123?.";
+	char *b2 = "?321..";
+	printf("%d\n", is_anagram(a2, b2));
+
+	char *a3 = "abca";
+	char *b3 = "bcab";
+	printf("%d\n", is_anagram(a3, b3));
+	
+	return (0);
 }

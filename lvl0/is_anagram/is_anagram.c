@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_of_2.c                                       :+:      :+:    :+:   */
+/*   is_anagram.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 09:14:42 by exam              #+#    #+#             */
-/*   Updated: 2019/06/08 20:56:20 by juochen          ###   ########.fr       */
+/*   Created: 2019/04/09 09:03:02 by exam              #+#    #+#             */
+/*   Updated: 2019/04/09 09:14:14 by exam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int    count_of_2(int n)
+int	is_anagram(char *a, char *b)
 {
-	int i;
-	int two = 0;
-	int tmp;
+	char	count[127] = {0};
+	int		i;
 
-	if (n <= 1)
-		return (0);
-	// iterate all numbers under n
-	i = 2;
-	while (i <= n)
+	//count a char
+	i = 0;
+	while (a[i] != '\0')
 	{
-		tmp = i;
-		while(tmp != 0)
-		{
-			if(tmp % 10 == 2)
-				two++;
-			tmp /= 10;
-		}
+		count[(int)a[i]] += 1;
 		i++;
 	}
-	return (two);
+
+	//substract count from b
+	i = 0;
+	while (b[i] != '\0')
+	{
+		count[(int)b[i]] -= 1;
+		i++;
+	}
+
+	//check if count is all zero
+	i = 0;
+	while (i < 127)
+	{
+		if (count[i] != 0)
+			return (0);
+		i++;
+	}
+	return (1);
 }

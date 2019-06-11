@@ -7,8 +7,6 @@ find_pivot<br>
 is_anagram<br>
 print_doublon<br>
 
-## Not complete:
-
 # Level 1:
 stack<br>
 count_alpha<br>
@@ -18,3 +16,10 @@ queue<br>
 height_tree<br>
 flood_fill<br>
 
+# Level 2:
+is_loop<br>
+
+## Not complete:
+longest_sequence<br>
+ord_alphlong<br>
+str_maxlenoc<br>

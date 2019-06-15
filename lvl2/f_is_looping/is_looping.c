@@ -23,10 +23,11 @@ int	is_looping(struct s_node *node)
 
 	if (node == 0)
 		return (0);
-
+	// Give a very very rara number
 	loopNode.value = -55667788;
 	loopNode.next = 0;
-	
+	// iter all node in list, then point node to loopNode
+	// WARNING: original list will been ruin
 	prev = 0;
 	cur = node;
 	while (cur != 0)

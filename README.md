@@ -10,16 +10,17 @@ print_doublon<br>
 # Level 1:
 stack<br>
 count_alpha<br>
+flood_fill<br>
 
 ## Not complete:
 queue<br>
 height_tree<br>
-flood_fill<br>
 
 # Level 2:
-is_loop<br>
+<br>
 
 ## Not complete:
 longest_sequence<br>
 ord_alphlong<br>
 str_maxlenoc<br>
+is_loop<br>

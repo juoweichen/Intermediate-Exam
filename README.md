@@ -11,10 +11,10 @@ print_doublon<br>
 stack<br>
 count_alpha<br>
 flood_fill<br>
+height_tree<br>
 
 ## Not complete:
 queue<br>
-height_tree<br>
 
 # Level 2:
 <br>

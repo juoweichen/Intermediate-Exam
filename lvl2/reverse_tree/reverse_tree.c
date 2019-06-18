@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_looping.c                                       :+:      :+:    :+:   */
+/*   reverse_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juochen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/17 23:16:03 by juochen           #+#    #+#             */
-/*   Updated: 2019/06/17 23:42:10 by juochen          ###   ########.fr       */
+/*   Created: 2019/06/15 20:41:25 by juochen           #+#    #+#             */
+/*   Updated: 2019/06/15 21:50:25 by juochen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 struct s_node {
-	int value;
-	struct s_node *next;
+	int           value;
+	struct s_node *right;
+	struct s_node *left;
 };
 
-int	is_looping(struct s_node *node)
+void reverse_tree(struct s_node *root)
 {
-	struct s_node *slow;
-	struct s_node *fast;
+	struct s_node *tmp;
 
-	if (node == 0)
-		return (0);
-	slow = node;
-	fast = node;
-	while (fast != 0)
-	{
-		slow = slow->next;
-		if (fast->next->next == 0)
-			return (0);
-		fast = fast->next->next;
-		if (slow == fast)
-			return (1);
-	}
-	return (0);
+	if (root == 0)
+		return ;
+	reverse_tree(root->left);
+	reverse_tree(root->right);
+	tmp = root->left;
+	root->left = root->right;
+	root->right = tmp;
 }

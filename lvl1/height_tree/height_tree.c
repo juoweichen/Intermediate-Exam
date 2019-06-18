@@ -3,12 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   height_tree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: juochen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/11 18:03:50 by exam              #+#    #+#             */
-/*   Updated: 2019/06/11 10:44:26 by juochen          ###   ########.fr       */
+/*   Created: 2019/06/17 22:56:40 by juochen           #+#    #+#             */
+/*   Updated: 2019/06/17 23:07:57 by juochen          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/* ************************************************************************** */	
 
 struct s_node {
 	int           value;
@@ -17,21 +17,18 @@ struct s_node {
 
 int height_tree(struct s_node *root)
 {
-	int i = 0;
-	int height = 0;
-	int tmp = 0;
-
+	int h;
+	int heightest = -1;
+	
 	if (root == 0)
 		return (-1);
 	if (root->nodes == 0)
 		return (0);
-	i = 0;
-	while (root->nodes[i] != 0)
+	for (int i = 0; root->nodes[i] != 0; i++)
 	{
-		tmp = height_tree(root->nodes[i]) + 1;
-		if (tmp > height)
-			height = tmp;
-		i++;
+		h = height_tree(root->nodes[i]);
+		if (h > heightest)
+			heightest = h;
 	}
-	return (height);
+	return (heightest + 1);
 }

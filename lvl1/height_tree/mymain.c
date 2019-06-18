@@ -44,9 +44,10 @@ int main(void)
 	root->nodes[1]->nodes[0] = init_node(11);
 	root->nodes[1]->nodes[0]->nodes = init_branch(1);
 	root->nodes[1]->nodes[0]->nodes[0] = init_node(13);
-	root->nodes[1]->nodes[0]->nodes[0]->nodes = init_branch(1);
-	root->nodes[1]->nodes[0]->nodes[0]->nodes[0] = init_node(28);
+	// root->nodes[1]->nodes[0]->nodes[0]->nodes = init_branch(1);
+	// root->nodes[1]->nodes[0]->nodes[0]->nodes[0] = init_node(28);
 	
 	printf("height_tree: %d\n", height_tree(root));
 	return (0);
 }
+

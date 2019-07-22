@@ -11,17 +11,23 @@ struct s_queue {
 };
 
 struct s_queue	*init(void);
-void			enqueue(struct s_queue *queue, void *content);
-void			*dequeue(struct s_queue *queue);
-void			*peek(struct s_queue *queue);
-int				isEmpty(struct s_queue *queue);
+void		enqueue(struct s_queue *queue, void *content);
+void		*dequeue(struct s_queue *queue);
+void		*peek(struct s_queue *queue);
+int		isEmpty(struct s_queue *queue);
 
 
 int main(void)
 {
-	struct s_queue *queue;
-
+	struct s_queue *queue = NULL;
+	
 	queue = init();
+	
+	// check null
+	printf("isEmpty: %d\n", isEmpty(queue));
+	printf("dequeue: %s\n", dequeue(queue));	
+	printf("isEmpty: %d\n", isEmpty(queue));
+
 	printf("isEmpty: %d\n", isEmpty(queue));
 
 	enqueue(queue, "Hi");

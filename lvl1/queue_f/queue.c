@@ -53,7 +53,7 @@ void enqueue(struct s_queue *queue, void *content)
 		queue->last->next = new;
 	queue->last = new;
 	if (queue->first == NULL)
-		queue->first = new;
+		queue->first = queue->last;
 }
 
 void *dequeue(struct s_queue *queue)
@@ -67,6 +67,8 @@ void *dequeue(struct s_queue *queue)
 	content = queue->first->content;
 	queue->first = queue->first->next;
 	free(ptr);
+	if (queue->first == NULL)
+		queue->last = NULL;
 	return (content);
 }
 

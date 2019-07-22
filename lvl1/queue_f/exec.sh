@@ -1,1 +1,1 @@
-gcc -Wall -Wextra -Werror mymain.c queue.c	
+gcc -Wall -Wextra -Werror mymain.c queue.c

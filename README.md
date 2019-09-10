@@ -1,7 +1,7 @@
 # 42 C Intermediate-Exam
 Intermediate exam subjects and solution<br>
 **Note:** Not complete means not testing on examshell yet<br>
-**Note:** Subject might change
+**Note:** Subjects might change
 
 ## Quick Start
 Subject description => Subject.en.txt<br>

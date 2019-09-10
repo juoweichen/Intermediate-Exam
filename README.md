@@ -99,6 +99,6 @@ The perimeter is defined as follows :<br>
 - rightmost nodes from bottom to top
 <br>
 
-**width_tree**
+**width_tree**<br>
 Given the root node of a binary tree, create a function that returns the 'width' of the tree, which is the number of node present on the longest path between two leaves in the tree.<br>
 <br>

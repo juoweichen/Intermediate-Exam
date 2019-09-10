@@ -10,25 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-struct s_node {
+struct s_node
+{
 	int value;
 	struct s_node *next;
 };
 
-int	is_looping(struct s_node *node)
+int is_looping(struct s_node *node)
 {
-	struct s_node *slow;
-	struct s_node *fast;
-
 	if (node == 0)
 		return (0);
-	slow = node;
-	fast = node;
+
+	struct s_node *slow = node;
+	struct s_node *fast = node;
+
 	while (fast != 0)
 	{
 		slow = slow->next;
-		if (fast->next->next == 0)
-			return (0);
 		fast = fast->next->next;
 		if (slow == fast)
 			return (1);

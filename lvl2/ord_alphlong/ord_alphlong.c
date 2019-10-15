@@ -1,7 +1,60 @@
 #include <stdlib.h>
 #include <unistd.h>
+// #include <stdio.h> //del this
 
-#include <stdio.h> //del this
+int my_strlen(char *s)
+{
+	int count = 0;
+
+	while ((*s++) != '\0')
+		count++;
+	return (count);
+}
+
+int my_strcmp(char *s1, char *s2)
+{
+	int a, b;
+
+	a = my_strlen(s1);
+	b = my_strlen(s2);
+	if (a != b)
+		return a - b;
+
+	while (*s1 != '\0' && *s2 != '\0')
+	{
+		if (*s1 - *s2 != 0)
+			break;
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
+
+void sort_words(char **words)
+{
+	int is_unsort = 1;
+	int i = 0;
+	char *tmp;
+
+	while (is_unsort)
+	{
+		is_unsort = 0;
+		i = 0;
+		while (words[i + 1] != NULL)
+		{
+			if (my_strcmp(words[i], words[i + 1]) > 0)
+			{
+				// swap
+				tmp = words[i];
+				words[i] = words[i + 1];
+				words[i + 1] = tmp;
+				// set to unsort
+				is_unsort = 1;
+			}
+			i++;
+		}
+	}
+}
 
 void extract_words(char *line, char **words, int wcount)
 {
@@ -11,14 +64,14 @@ void extract_words(char *line, char **words, int wcount)
 	int i = 0;
 	int j = 0;
 
-	while (i < wcount) 
+	while (i < wcount)
 	{
 		// skip space
 		wend = whead;
 		while (*wend != '\0' && (*wend == ' ' || *wend == '\t'))
 			wend++;
 		if (*wend == '\0')
-			break ;
+			break;
 		// start from head of the word
 		whead = wend;
 		while (*wend != '\0' && *wend != ' ' && *wend != '\t')
@@ -68,7 +121,7 @@ char **split(char *line)
 	words = (char **)malloc(sizeof(char *) * wcount + 1);
 	// extract word to words
 	extract_words(line, words, wcount);
-	// return words	
+	// return words
 	return (words);
 }
 
@@ -76,22 +129,45 @@ void ord_alphlong(char *line)
 {
 	char **words = NULL;
 	char **ptr = NULL;
+	int wlen = 0;
 
 	if (line == NULL)
-		return ;
+		return;
 
 	// extract words
 	words = split(line);
-
-	ptr = words;
-	while (*ptr != NULL)
-		printf("word: %s\n", *(ptr++));
+	if (words[0] == NULL)
+	{
+		write(1, "\n", 1);
+		return ;
+	}
+	// // test
+	// ptr = words;
+	// while (*ptr != NULL)
+	// 	printf("word: %s\n", *(ptr++));
+	// printf("====\n");
 
 	// sort words
-	
+	sort_words(words);
 
-	// display
-	// meet new len print a newline
+	// // test
+	// ptr = words;
+	// while (*ptr != NULL)
+	// 	printf("word: %s\n", *(ptr++));
+	// printf("====\n");
+
+	// display, meet new wlen print a newline
+	ptr = words;
+	while (*ptr != NULL)
+	{
+		wlen = my_strlen(*ptr);
+		write(1, *ptr, wlen);
+		ptr++;
+		if (*ptr == NULL || my_strlen(*ptr) > wlen)
+			write(1, "\n", 1);
+		else
+			write(1, " ", 1);
+	}
 }
 
 int main(int argc, char **argv)

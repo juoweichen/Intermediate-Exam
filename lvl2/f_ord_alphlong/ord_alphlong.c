@@ -3,197 +3,95 @@
 
 #include <stdio.h> //del this
 
-typedef struct		s_word
+void extract_words(char *line, char **words, int wcount)
 {
-	char			*word;
-	struct s_word	*next;
-}					t_word;
+	char *whead = line;
+	char *wend = NULL;
+	int wlen = 0;
+	int i = 0;
+	int j = 0;
 
-typedef struct		s_len
-{
-	int				wlen;
-	t_word			*wordlist;
-	struct s_len	*next;
-}					t_len;
-
-t_word *init_word_node(char *word)
-{
-	t_word *new;
-
-	new = (t_word *)malloc(sizeof(t_word));
-	new->word = word;
-	new->next = NULL;
-	return (new);
-}
-
-t_len *init_len_node(int len)
-{
-	t_len *new;
-
-	new = (t_len *)malloc(sizeof(t_len));
-	new->wlen = len;
-	new->wordlist = NULL;
-	new->next = NULL;
-	return (new);
-}
-
-int ft_strcmp(char *str1, char *str2)
-{
-	while (*str1 != '\0' && *str2 != '\0')
+	while (i < wcount) 
 	{
-		if (*str1 != *str2)
+		// skip space
+		wend = whead;
+		while (*wend != '\0' && (*wend == ' ' || *wend == '\t'))
+			wend++;
+		if (*wend == '\0')
 			break ;
-		str1++;
-		str2++;
-	}
-	return (*str1 - *str2);
-}
-
-void ft_putstr(char *s)
-{
-	while (*s != '\0')
-	{
-		write(1, s, 1);
-		s++;
-	}
-}
-
-void store_to_wlist(t_len *llist, char *word)
-{
-	t_word *wordptr;
-	t_word *tmp;
-
-	wordptr = llist->wordlist;
-
-	printf("lol1\n");
-
-	while (wordptr != NULL)
-	{
-		printf("%s->", wordptr->word);
-		wordptr = wordptr->next;
-	}
-	printf("\n");
-
-	wordptr = llist->wordlist;
-	while (wordptr->next != NULL && ft_strcmp(wordptr->next->word, word) < 0)
-		wordptr = wordptr->next;
-	printf("lol2\n");
-
-	tmp = wordptr->next;
-	wordptr->next = init_word_node(word);
-	wordptr = wordptr->next;
-	wordptr->next = tmp;
-
-	printf("lol3\n");
-}
-
-void store_to_list(t_len **lenlist, char *word, int wlen)
-{
-	t_len *lenptr;
-	t_len *tmp;
-
-	if (*lenlist == NULL)
-	{
-		*lenlist = init_len_node(wlen);
-		(*lenlist)->wordlist = init_word_node(word);
-	}
-	else
-	{
-		lenptr = *lenlist;
-		while (lenptr->next != NULL && lenptr->next->wlen < wlen)
-			lenptr = lenptr->next;
-		if (lenptr->next != NULL && lenptr->next->wlen == wlen)
-			store_to_wlist(lenptr->next, word);
-		else
-		{
-			tmp = lenptr->next;
-			lenptr->next = init_len_node(wlen);
-			lenptr = lenptr->next;
-			lenptr->next = tmp;
-		}
-	}
-}
-
-int get_next_word(char *str, char **next_word, char **ptr)
-{
-	char *cur;
-	int i;
-	int wlen;
-
-	if (str == NULL)
-		return (0);
-	if (*ptr == NULL)
-		*ptr = str;
-	
-	// skip space
-	while (**ptr != '\0' && (**ptr == ' ' || **ptr == '\t'))
-		(*ptr)++;
-	if (**ptr == '\0')
-		return (0);
-
-	// count word
-	cur = *ptr;
-	while (*cur != '\0' && *cur != ' ')
-		cur++;
-
-	// store word
-	wlen = cur - *ptr;
-	*next_word = (char *)malloc(sizeof(char) * wlen + 1);
-	i = 0;
-	while (*ptr != cur)
-	{
-		(*next_word)[i] = **ptr;
+		// start from head of the word
+		whead = wend;
+		while (*wend != '\0' && *wend != ' ' && *wend != '\t')
+			wend++;
+		// allocte word mem
+		wlen = wend - whead;
+		words[i] = (char *)malloc(sizeof(char) * (wlen + 1));
+		// record word by chars
+		j = 0;
+		while (j < wlen)
+			words[i][j++] = *(whead++);
+		words[i][j] = '\0';
 		i++;
-		(*ptr)++;
 	}
-	(*next_word)[i] = '\0';
-
-	return (wlen);
+	words[i] = NULL;
 }
 
-void ord_alphlong(char *str)
+int word_count(char *line)
 {
-	char *next_word;
-	int wlen;
-	char *ptr = NULL;
-	t_len *lenlist = NULL;
+	char *ptr = line;
+	int wcount = 0;
 
-	if (str == NULL)
+	while (*ptr != '\0')
+	{
+		// skip space
+		while (*ptr == ' ' || *ptr == '\t')
+			ptr++;
+		if (*ptr == '\0')
+			return (wcount);
+		// move through word
+		while (*ptr != '\0' && *ptr != ' ' && *ptr != '\t')
+			ptr++;
+		// increase count
+		wcount++;
+	}
+	return (wcount);
+}
+
+char **split(char *line)
+{
+	char **words = NULL;
+	int wcount = 0;
+
+	// count words numbers
+	wcount = word_count(line);
+	// allocate words mem
+	words = (char **)malloc(sizeof(char *) * wcount + 1);
+	// extract word to words
+	extract_words(line, words, wcount);
+	// return words	
+	return (words);
+}
+
+void ord_alphlong(char *line)
+{
+	char **words = NULL;
+	char **ptr = NULL;
+
+	if (line == NULL)
 		return ;
-	while ((wlen = get_next_word(str, &next_word, &ptr)) != 0)
-	{
-		printf("next: %s, wlen: %d\n", next_word, wlen); //del this
-		store_to_list(&lenlist, next_word, wlen);
 
-	//print list
-	t_len *lenptr;
-	t_word *wordptr;
-	int first_flag;
+	// extract words
+	words = split(line);
 
-	lenptr = lenlist;
-	while (lenptr != NULL)
-	{
-		first_flag = 1;
-		wordptr = lenptr->wordlist;
-		while (wordptr != NULL)
-		{
-			if (first_flag == 1)
-			{
-				first_flag = 0;
-				ft_putstr(wordptr->word);
-			}
-			else
-			{
-				write(1, " ", 1);
-				ft_putstr(wordptr->word);
-			}
-			wordptr = wordptr->next;
-		}
-		write(1, "\n", 1);
-		lenptr = lenptr->next;
-	}
+	ptr = words;
+	while (*ptr != NULL)
+		printf("word: %s\n", *(ptr++));
 
-	}
+	// sort words
+	
+
+	// display
+	// meet new len print a newline
 }
 
 int main(int argc, char **argv)

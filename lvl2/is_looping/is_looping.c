@@ -16,6 +16,11 @@ struct s_node
 	struct s_node *next;
 };
 
+/*
+	Set two pointers, fast and slow,
+	fast move two nodes, slow move one node
+	If fast catched up to slow means there's loop exist
+*/
 int is_looping(struct s_node *node)
 {
 	if (node == 0)

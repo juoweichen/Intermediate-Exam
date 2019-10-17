@@ -31,7 +31,7 @@ int main(void)
 	root1->left->right = init_node(9);
 	root1->left->left->left = init_node(7);
 	root1->left->left->right = init_node(13);
-	printf("longest: %d\n", longest_sequence(root1));
+	printf("longest: %d\n", longest_sequence(root1));	// 3
 
 	struct s_node* root2;
 	
@@ -43,7 +43,7 @@ int main(void)
 	root2->right->left->left = init_node(3);
 	root2->right->left->right = init_node(2);
 	root2->right->right->right = init_node(2);
-	printf("longest: %d\n", longest_sequence(root2));
+	printf("longest: %d\n", longest_sequence(root2));	// 2
 	
 	struct s_node* root3;
 	
@@ -52,13 +52,13 @@ int main(void)
 	root3->right = init_node(41);
 	root3->left->left = init_node(61);
 	root3->right->left = init_node(80);
-	printf("longest: %d\n", longest_sequence(root3));
+	printf("longest: %d\n", longest_sequence(root3));	// 1
 
 	struct s_node *root4 = init_node(16);
-	printf("longest: %d\n", longest_sequence(root4));
+	printf("longest: %d\n", longest_sequence(root4));	// 1
 
 	struct s_node *root5 = NULL;	
-	printf("longest: %d\n", longest_sequence(root5));
+	printf("longest: %d\n", longest_sequence(root5));	// 0
 
 	struct s_node *root6;
 	root6 = init_node(1);
@@ -67,7 +67,7 @@ int main(void)
 	root6->left->left->left = init_node(4);
 	root6->left->left->left->left = init_node(3);
 	root6->left->left->left->left->left = init_node(4);
-	printf("longest: %d\n", longest_sequence(root6));
+	printf("longest: %d\n", longest_sequence(root6));	// 4
 
 	return (0);
 }

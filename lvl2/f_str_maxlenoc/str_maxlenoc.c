@@ -1,112 +1,79 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>  // DELETE THIS
 
-#include <stdio.h>	//delete this
-
-int ft_strlen(char *str);
-void print_str(char *str);
-char *find_shortest_str(int argc, char **argv);
-int find_short_in_long(char *shrt, char *lng);
-
-char *find_shortest_str(int argc, char **argv)
+int my_strncmp(char *s1, char *s2, int n)
 {
-	int i;
-	int len;
-	char *sstr = NULL;
-	int sstrlen = 99999999;
-
-	i = 1;
-	while (i < argc)
-	{
-		len = ft_strlen(argv[i]);
-		if (sstrlen > len)
-		{
-			sstr = argv[i];
-			sstrlen = len;
-		}
-		i++;
-	}
-	return (sstr);
+    for (int i = 0; i < n; i++)
+    {
+        if (*s1 - *s2 != 0)
+            break ;
+        s1++;
+        s2++;
+    }
+    return (*s1 - *s2);
 }
 
-int ft_strlen(char *str)
+int my_strlen(char *s)
 {
-	int count;
+    int count = 0;
 
-	count = 0;
-	while (str[count] != '\0')
-		count++;
-	return (count);
+    while (*(s++) != '\0')
+        count++;
+    return (count);
 }
 
-void print_str(char *str)
+int find_shortest_words(char **words, char **sptr)
 {
-	while (*str != '\0')
-	{
-		write(1, str, 1);
-		str++;
-	}
+    int len = 0, slen = INT32_MAX;
+    
+    while (*words != NULL)
+    {
+        len = my_strlen(*words);
+        if (slen > len)
+        {
+            slen = len;
+            *sptr = *words;
+        }
+        words++;
+    }
+    return (slen);
 }
 
-int find_short_in_long(char *shrt, char *lng)
+/*
+    Find the shortest word and length.
+    Base on the length of shortest words, searching if other words
+    has matching the same pattern in the shorest word. 
+    If not, shrinking the length by 1, searching all words by shorten word, 
+    keep repeat until a pattern found match in all the other words. 
+*/
+void str_maxlenoc(char **words)
 {
-	int i;
-	int j;
+    char *sptr = NULL;  // shortest word pointer
+    int slen = 0;       // shorest word len
+    char *pptr = NULL;
+    int plen = 0;
 
-	i = 0;
-	j = 0;
-	while (*lng != '\0')
-	{
-		i = 0;
-		j = 0;
-		while (lng[j] != '\0')
-		{
-			if (lng[j] != shrt[i])
-				break ;
-			i++;
-			j++;
-		}
-		if (shrt[i] == '\0')
-			return (1);
-		lng++;
-	}
-	return (0);
+    // find the shortest word
+    slen = find_shortest_words(words, &sptr);
+    printf("sptr: %s, slen: %d\n", sptr, slen);
+
+    // Searching pattern by length
+    plen = slen;
+    while (plen > 0)
+    {
+        // window sliding the shortest word to get the current pattern
+        
+        plen--;
+    }
+
+    // Display result
 }
 
 int main(int argc, char **argv)
 {
-	if (argc > 1)
-	{
-		char *sstr;
-
-		//find the shortest string
-		sstr = find_shortest_str(argc, argv);
-		printf("sstr = %s\n", sstr);
-
-		//loop each possible string in the shortest string
-		//compare with other string to find match or not
-		char *sptr;
-		int i;
-
-		sptr = sstr;
-		while (*sptr != '\0')
-		{
-			i = 1;
-			while (i < argc)
-			{
-				printf("sptr = %s\n", sptr);
-				if (find_short_in_long(sptr, argv[i]) == 0)
-					break ;
-				i++;
-			}
-			if (i == argc)
-			{
-				print_str(sptr);
-				return (0);
-			}
-			sptr++;
-		}
-	}
-	write(1, "\n", 1);
-	return (0);
+    if (argc > 1)
+        str_maxlenoc(argv + 1);
+    write(1, "\n", 1);
+    return (0);
 }

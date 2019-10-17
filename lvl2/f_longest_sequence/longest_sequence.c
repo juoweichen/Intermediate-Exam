@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//# include <stdio.h> for test
+# include <stdio.h>  // for test
 
 struct s_node
 {
@@ -19,23 +19,31 @@ struct s_node
 	struct s_node *right;
 };
 
+void tree_recursion(struct s_node *node, int *longest, int *current)
+{
+    if (!node)
+        return ;
+    if ((node->left && node->value + 1 == node->left->value) ||
+        (node->right && node->value + 1 == node->right->value))
+        *current = *current + 1;
+    else
+        *current = 1;
+    *longest = (*current > *longest ? *current : *longest);
+    tree_recursion(node->left, longest, current);
+    tree_recursion(node->right, longest, current);
+}
+
+/*
+    Record two values, current length and longest length
+    current length will reset to 1 when sequence stop
+    longest length keep update longest
+    Travel the tree by pre-order to keep in track longest length
+*/
 int	longest_sequence(struct s_node *node)
 {
-	int left;
-	int right;
-	int longest;
+    int longest = 0;
+    int current = 1;
 
-	if (!node)
-		return (0);
-	// printf("%d\n", node->value); print out tree	
-	left = longest_sequence(node->left);
-	right = longest_sequence(node->right);
-	if ((node->left == 0 && node->right == 0))
-		return (1); // most bottom node
-	else if (node->right != 0 && node->right->value == node->value + 1)
-		right++; // if right is a sequeance, right + 1 so right is right longest sequence
-	else if(node->left != 0 && node->left->value == node->value + 1)
-		left++; // same as right
-	longest = (left > right ? left : right);
-	return (longest);
+    tree_recursion(node, &longest, &current);
+    return (longest);
 }

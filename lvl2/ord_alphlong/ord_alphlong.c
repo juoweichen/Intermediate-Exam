@@ -2,6 +2,15 @@
 #include <unistd.h>
 // #include <stdio.h> //del this
 
+void test_print_words(char **words)
+{
+	char **ptr = words;
+
+	while (*ptr != NULL)
+		printf("word: %s\n", *(ptr++));
+	printf("====\n");
+}
+
 int my_strlen(char *s)
 {
 	int count = 0;
@@ -136,25 +145,15 @@ void ord_alphlong(char *line)
 
 	// extract words
 	words = split(line);
+	// if all space, print new line
 	if (words[0] == NULL)
 	{
 		write(1, "\n", 1);
 		return ;
 	}
-	// // test
-	// ptr = words;
-	// while (*ptr != NULL)
-	// 	printf("word: %s\n", *(ptr++));
-	// printf("====\n");
 
 	// sort words
 	sort_words(words);
-
-	// // test
-	// ptr = words;
-	// while (*ptr != NULL)
-	// 	printf("word: %s\n", *(ptr++));
-	// printf("====\n");
 
 	// display, meet new wlen print a newline
 	ptr = words;

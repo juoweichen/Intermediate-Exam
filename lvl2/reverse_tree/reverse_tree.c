@@ -24,6 +24,7 @@ void reverse_tree(struct s_node *root)
 		return ;
 	reverse_tree(root->left);
 	reverse_tree(root->right);
+	// swap
 	tmp = root->left;
 	root->left = root->right;
 	root->right = tmp;

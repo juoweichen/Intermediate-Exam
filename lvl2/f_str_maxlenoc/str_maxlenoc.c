@@ -7,11 +7,11 @@ int my_strncmp(char *s1, char *s2, int n)
     for (int i = 0; i < n; i++)
     {
         if (*s1 - *s2 != 0)
-            break ;
+            return (*s1 - *s2);
         s1++;
         s2++;
     }
-    return (*s1 - *s2);
+    return (0);
 }
 
 int my_strlen(char *s)
@@ -53,6 +53,8 @@ void str_maxlenoc(char **words)
     int slen = 0;       // shorest word len
     char *pptr = NULL;
     int plen = 0;
+    char **wsptr = NULL;
+    char *wptr = NULL;
 
     // find the shortest word
     slen = find_shortest_words(words, &sptr);
@@ -62,8 +64,30 @@ void str_maxlenoc(char **words)
     plen = slen;
     while (plen > 0)
     {
+        printf("current pattern length: %d\n", plen);
         // window sliding the shortest word to get the current pattern
-        
+        pptr = sptr;
+        while ((pptr - sptr) + plen <= slen)
+        {
+            printf("%.*s\n", plen, pptr);
+            // loop througn each words
+            wsptr = words;
+            while (*wsptr != NULL)
+            {
+                printf("\t%s\n", *wsptr);
+                // compare pattern in word
+                wptr = *wsptr;
+                while (*(wptr + plen - 1) != '\0')
+                {
+                    printf("\t\t%.*s\n", plen, wptr);
+                    if (my_strncmp(wptr, pptr, plen) == 0)
+                        printf("\t\t\t%.*s\n", plen, wptr);
+                    wptr++;
+                }
+                wsptr++;
+            }
+            pptr++;
+        }
         plen--;
     }
 

@@ -40,6 +40,52 @@ int find_shortest_words(char **words, char **sptr)
     return (slen);
 }
 
+int loop_word(int plen, char *pattern, char *word)
+{
+    char *cptr = NULL;
+
+    cptr = word;
+    while (cptr[plen - 1] != '\0')
+    {
+        printf("\t\t\tcptr: %.*s\n", plen, cptr);
+        if (my_strncmp(pattern, cptr, plen) == 0)
+        {
+            printf("\t\t\t\t=> match\n");
+            return (1);
+        }
+        cptr++;
+    }
+    return (0);
+}
+
+int loop_words(int plen, char *pattern, char **words)
+{
+    char **wptr = words;
+
+    while (*wptr != NULL)
+    {
+        printf("\t\tword: %s\n", *wptr);
+        if (loop_word(plen, pattern, *wptr) == 0)
+            return (0);
+        wptr++;
+    }
+    return (1);
+}
+
+int pattern_matching(int plen, char *sptr, char **words)
+{
+    printf("plen: %d\n", plen);
+    while (sptr[plen - 1] != '\0')
+    {
+        printf("\tpattern: %.*s\n", plen, sptr);
+        // check through all the words
+        if (loop_words(plen, sptr, words) == 1)
+            return (write(1, sptr, plen));
+        sptr++;
+    }
+    return(0);
+}
+
 /*
     Find the shortest word and length.
     Base on the length of shortest words, searching if other words
@@ -51,47 +97,21 @@ void str_maxlenoc(char **words)
 {
     char *sptr = NULL;  // shortest word pointer
     int slen = 0;       // shorest word len
-    char *pptr = NULL;
-    int plen = 0;
-    char **wsptr = NULL;
-    char *wptr = NULL;
+    // char *pptr = NULL;
+    // int plen = 0;
 
     // find the shortest word
     slen = find_shortest_words(words, &sptr);
     printf("sptr: %s, slen: %d\n", sptr, slen);
 
     // Searching pattern by length
-    plen = slen;
-    while (plen > 0)
+    // plen = slen;
+    while (slen > 0)
     {
-        printf("current pattern length: %d\n", plen);
-        // window sliding the shortest word to get the current pattern
-        pptr = sptr;
-        while ((pptr - sptr) + plen <= slen)
-        {
-            printf("%.*s\n", plen, pptr);
-            // loop througn each words
-            wsptr = words;
-            while (*wsptr != NULL)
-            {
-                printf("\t%s\n", *wsptr);
-                // compare pattern in word
-                wptr = *wsptr;
-                while (*(wptr + plen - 1) != '\0')
-                {
-                    printf("\t\t%.*s\n", plen, wptr);
-                    if (my_strncmp(wptr, pptr, plen) == 0)
-                        printf("\t\t\t%.*s\n", plen, wptr);
-                    wptr++;
-                }
-                wsptr++;
-            }
-            pptr++;
-        }
-        plen--;
+        if (pattern_matching(slen, sptr, words) > 0)
+            return ;            
+        slen--;
     }
-
-    // Display result
 }
 
 int main(int argc, char **argv)

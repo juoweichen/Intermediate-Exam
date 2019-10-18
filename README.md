@@ -1,6 +1,6 @@
 # 42 C Intermediate-Exam
 Intermediate exam subjects and solution<br>
-**Note:** Not complete means not testing on examshell yet<br>
+**Note:** Not complete means not passed on examshell yet<br>
 **Note:** Subjects might change
 
 ## Quick Start
@@ -46,19 +46,14 @@ The order is the order of occurence in the string. The display must be ended by 
 **flood_fill**<br>
 Write a function that takes a char ** as a 2-dimensional array of char, a t_point as the dimensions of this array and a t_point as the starting point.<br>
 
-Starting from the given 'begin' t_point, this function fills an entire zone 
-by replacing characters inside with the character 'F'. A zone is an group of 
-the same character delimitated horizontally and vertically by other characters
+Starting from the given 'begin' t_point, this function fills an entire zone by replacing characters inside with the character 'F'. A zone is an group of the same character delimitated horizontally and vertically by other characters
 or the array boundry.<br>
 <br>
 **height_tree**<br>
 Implement a function to calculate the height of an n-ary tree.<br>
 <br>
-
-## Not complete:
 **queue**<br>
 Implement a queue data structure in C.<br>
-<br>
 
 ## Level 2:
 **reverse_tree**<br>
@@ -67,19 +62,17 @@ Implement a function to reverse a binary tree (i.e., flip it from right to left)
 **is_looping**<br>
 Given the first node of a linked list as parameter, create a function which returns 1 if the linked list is looping, otherwise 0.<br>
 <br>
-
-## Not complete:
-**longest_sequence**<br>
-Given the root node of a binary tree, create a function that return the length of the longest path which comprises of nodes with consecutive values in increasing order.<br>
-Every node is considered as a path of length 1.<br>
-<br>
 **ord_alphlong**<br>
 Write a program that takes a string as a parameter and prints its words sorted in order of their length first and then in alphabetical order on each line: <br>
 when we say alphabetical order we ignore the case of letters.<br>
 <br>
 **str_maxlenoc**<br>
 Write a program that takes one or more strings and displays, followed by a newline, the longest string that appears in every parameter. If more that one string qualifies, it will display the one that appears first in the first parameter. Note that the empty string technically appears in any string.<br>
-<br>
+
+## Not complete:
+**longest_sequence**<br>
+Given the root node of a binary tree, create a function that return the length of the longest path which comprises of nodes with consecutive values in increasing order.<br>
+Every node is considered as a path of length 1.<br>
 
 # Level 3:
 

@@ -1,6 +1,5 @@
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>  // DELETE THIS
 
 int my_strncmp(char *s1, char *s2, int n)
 {
@@ -47,12 +46,8 @@ int loop_word(int plen, char *pattern, char *word)
     cptr = word;
     while (cptr[plen - 1] != '\0')
     {
-        printf("\t\t\tcptr: %.*s\n", plen, cptr);
         if (my_strncmp(pattern, cptr, plen) == 0)
-        {
-            printf("\t\t\t\t=> match\n");
             return (1);
-        }
         cptr++;
     }
     return (0);
@@ -64,7 +59,6 @@ int loop_words(int plen, char *pattern, char **words)
 
     while (*wptr != NULL)
     {
-        printf("\t\tword: %s\n", *wptr);
         if (loop_word(plen, pattern, *wptr) == 0)
             return (0);
         wptr++;
@@ -74,10 +68,8 @@ int loop_words(int plen, char *pattern, char **words)
 
 int pattern_matching(int plen, char *sptr, char **words)
 {
-    printf("plen: %d\n", plen);
     while (sptr[plen - 1] != '\0')
     {
-        printf("\tpattern: %.*s\n", plen, sptr);
         // check through all the words
         if (loop_words(plen, sptr, words) == 1)
             return (write(1, sptr, plen));
@@ -102,7 +94,6 @@ void str_maxlenoc(char **words)
 
     // find the shortest word
     slen = find_shortest_words(words, &sptr);
-    printf("sptr: %s, slen: %d\n", sptr, slen);
 
     // Searching pattern by length
     // plen = slen;

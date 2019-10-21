@@ -1,1 +1,1 @@
-gcc -Wall -Werror -Wextra mymain.c longest_sequence.c
+gcc -Wall -Werror -Wextra mymain2.c longest_sequence.c

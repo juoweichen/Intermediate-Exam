@@ -19,18 +19,21 @@ struct s_node
 	struct s_node *right;
 };
 
-void tree_recursion(struct s_node *node, int *longest, int *current)
+void tree_recursion(struct s_node *node, int *longest, int current)
 {
+    int cl, cr, cm;
+
     if (!node)
         return ;
-    if ((node->left && node->value + 1 == node->left->value) ||
-        (node->right && node->value + 1 == node->right->value))
-        *current = *current + 1;
-    else
-        *current = 1;
-    *longest = (*current > *longest ? *current : *longest);
-    tree_recursion(node->left, longest, current);
-    tree_recursion(node->right, longest, current);
+    // update current right & current left
+    cl = (node->left && node->value + 1 == node->left->value) ? current + 1 : 1;
+    cr = (node->right && node->value + 1 == node->right->value) ? current + 1 : 1;
+    // update longest
+    cm = (cl > cr ? cl : cr);
+    *longest = (cm > *longest ? cm : *longest);
+    // tree travesal
+    tree_recursion(node->left, longest, cl);
+    tree_recursion(node->right, longest, cr);
 }
 
 /*
@@ -44,6 +47,6 @@ int	longest_sequence(struct s_node *node)
     int longest = 0;
     int current = 1;
 
-    tree_recursion(node, &longest, &current);
+    tree_recursion(node, &longest, current);
     return (longest);
 }

@@ -74,13 +74,6 @@ Given the root node of a binary tree, create a function that return the length o
 Every node is considered as a path of length 1.<br>
 
 # Level 3:
-
-## Not complete:
-**convert_bst**<br>
-A binary search tree (BST) is a binary tree in which every node fits a specific ordering property :<br>
-all left descendants <= n < all right descendants<br>
-This must be true for each node n.<br>
-
 **perimeter**<br>
 Implement a function which prints the perimeter of a binary tree.<br>
 <br>
@@ -88,6 +81,12 @@ The perimeter is defined as follows :<br>
 - leftmost nodes from top to bottom
 - leaf nodes from left to right
 - rightmost nodes from bottom to top
+
+## Not complete:
+**convert_bst**<br>
+A binary search tree (BST) is a binary tree in which every node fits a specific ordering property :<br>
+all left descendants <= n < all right descendants<br>
+This must be true for each node n.<br>
 
 **width_tree**<br>
 Given the root node of a binary tree, create a function that returns the 'width' of the tree, which is the number of node present on the longest path between two leaves in the tree.<br>
